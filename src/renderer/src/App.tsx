@@ -779,8 +779,15 @@ const dictionary = {
   }
 };
 
-createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+async function bootstrap(): Promise<void> {
+  if (__BROWSER_BUILD__) {
+    await import('./browser/api');
+  }
+  createRoot(document.getElementById('root')!).render(
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  );
+}
+
+void bootstrap();

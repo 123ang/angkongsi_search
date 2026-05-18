@@ -18,6 +18,10 @@ export type AncestorInput = Omit<AncestorRecord, 'id' | 'created_at' | 'updated_
   record_code?: string | null;
 };
 
+export interface SearchOptions {
+  keyword: string;
+}
+
 export interface AppSettings {
   language: 'zh' | 'en';
   associationName: string;

@@ -19,7 +19,12 @@ interface RestoreResult {
   restoredPhotos: number;
 }
 
+/// <reference types="vite/client" />
+
+declare const __BROWSER_BUILD__: boolean;
+
 declare global {
+  const __BROWSER_BUILD__: boolean;
   interface Window {
     ancestorApi: {
       records: {

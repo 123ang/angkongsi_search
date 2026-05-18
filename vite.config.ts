@@ -4,7 +4,11 @@ import path from 'node:path';
 
 export default defineConfig({
   root: 'src/renderer',
+  base: './',
   plugins: [react()],
+  define: {
+    __BROWSER_BUILD__: 'false'
+  },
   build: {
     outDir: '../../dist/renderer',
     emptyOutDir: true
