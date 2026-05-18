@@ -1,6 +1,6 @@
 {
   "name": "ancestor-tablet-search",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Offline ancestor tablet search desktop app",
   "main": "dist/main/main.js",
   "author": "Ang Kongsi",
@@ -61,6 +61,12 @@
         "nsis",
         "portable"
       ]
+    },
+    "nsis": {
+      "artifactName": "AncestorTabletSearch_Setup_v${version}.${ext}"
+    },
+    "portable": {
+      "artifactName": "AncestorTabletSearch_v${version}.${ext}"
     }
   }
 }
