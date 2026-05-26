@@ -58,8 +58,9 @@ function App() {
   const runSearch = async () => {
     const trimmed = keyword.trim();
     if (!trimmed) {
-      setResults([]);
-      setMessage(t.enterKeyword);
+      const rows = await window.ancestorApi.records.list();
+      setResults(rows);
+      setMessage(rows.length ? `${t.found} ${rows.length} ${t.records}` : t.noRecords);
       return;
     }
     const rows = await window.ancestorApi.records.search({ keyword: trimmed });

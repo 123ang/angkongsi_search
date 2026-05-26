@@ -64,8 +64,6 @@ function initializeDatabase(database: Database.Database): void {
     CREATE INDEX IF NOT EXISTS idx_origin_place ON ancestor_records(origin_place);
   `);
 
-  const count = database.prepare('SELECT COUNT(*) AS count FROM ancestor_records').get() as { count: number };
-  if (count.count === 0) seed(database);
 }
 
 function migrateDatabase(database: Database.Database): void {
@@ -94,57 +92,6 @@ function migrateDatabase(database: Database.Database): void {
       update.run({ id: row.id, spouses: JSON.stringify(spouses) });
     }
   }
-}
-
-function seed(database: Database.Database): void {
-  const sample: AncestorInput[] = [
-    {
-      record_code: 'A0001',
-      chinese_name: '洪文杰',
-      english_name: 'Hong Wen Jie',
-      spouses: ['陈美兰'],
-      tablet_location: '左排第三层 12号',
-      birth_year: '约1930',
-      death_year: '1998',
-      origin_place: '福建南安',
-      photo_path: '',
-      remarks: '清明节常有后人来祭拜'
-    },
-    {
-      record_code: 'A0002',
-      chinese_name: '林秀英',
-      english_name: 'Lim Siew Eng',
-      spouses: ['黄国安'],
-      tablet_location: '右排第二层 08号',
-      birth_year: '不详',
-      death_year: '2005',
-      origin_place: '广东潮州',
-      photo_path: '',
-      remarks: '资料由家属补充'
-    },
-    {
-      record_code: 'A0003',
-      chinese_name: '张德成',
-      english_name: 'Cheong Tak Seng',
-      spouses: ['李玉珍', '王月娥'],
-      tablet_location: '中殿甲区第一层 03号',
-      birth_year: '民国时期',
-      death_year: '1976',
-      origin_place: '海南文昌',
-      photo_path: '',
-      remarks: '旧档案转录'
-    }
-  ];
-
-  const insert = database.prepare(`
-    INSERT INTO ancestor_records (${columns.join(', ')})
-    VALUES (${columns.map((column) => `@${column}`).join(', ')})
-  `);
-  const insertMany = database.transaction((records: AncestorInput[]) => {
-    for (const record of records) insert.run(normalizeInput(record));
-  });
-  insertMany(sample);
-  log('Seed records inserted');
 }
 
 function normalizeInput(input: AncestorInput): Record<string, string> {
@@ -179,7 +126,7 @@ function mapRecord(record: AncestorRecord): AncestorRecord {
 
 export function searchRecords({ keyword }: SearchOptions): AncestorRecord[] {
   const trimmed = keyword.trim();
-  if (!trimmed) return [];
+  if (!trimmed) return listRecords();
 
   const like = `%${trimmed}%`;
   return (getDb()
