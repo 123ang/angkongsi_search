@@ -621,7 +621,7 @@ const dictionary = {
     association: '槟城洪氏宗祠燉煌堂',
     title: '神主牌资料搜寻系统',
     subtitle: 'Penang Toon Hong Tong Ang Clan Association',
-    footerMotto: '慎终追远 · 饮水思源',
+    footerMotto: '饮水思源',
     manageData: '整理资料',
     backSearch: '返回搜寻',
     recordsTab: '记录资料',

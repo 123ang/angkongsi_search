@@ -29,6 +29,12 @@ import type { AncestorInput, AppSettings, SearchOptions } from './types';
 
 let mainWindow: BrowserWindow | null = null;
 
+function getWindowIconPath(): string {
+  return app.isPackaged
+    ? path.join(process.resourcesPath, 'icon.png')
+    : path.join(__dirname, '../../build/icon.png');
+}
+
 async function createWindow(): Promise<void> {
   mainWindow = new BrowserWindow({
     width: 1280,
@@ -36,6 +42,7 @@ async function createWindow(): Promise<void> {
     minWidth: 1000,
     minHeight: 700,
     title: '神主牌搜寻系统',
+    icon: getWindowIconPath(),
     webPreferences: {
       preload: path.join(__dirname, '../preload/preload.js'),
       contextIsolation: true,

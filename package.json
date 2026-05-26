@@ -51,7 +51,8 @@
     },
     "files": [
       "dist/**/*",
-      "package.json"
+      "package.json",
+      "build/**/*"
     ],
     "asarUnpack": [
       "**/*.node"
@@ -60,13 +61,24 @@
       "target": [
         "nsis",
         "portable"
-      ]
+      ],
+      "icon": "build/icon.ico"
     },
     "nsis": {
-      "artifactName": "AncestorTabletSearch_Setup_v${version}.${ext}"
+      "artifactName": "洪氏宗祠神主牌搜寻系统_Setup_v${version}.${ext}",
+      "installerIcon": "build/icon.ico",
+      "uninstallerIcon": "build/icon.ico",
+      "installerSidebar": "build/installer-sidebar.bmp",
+      "uninstallerSidebar": "build/uninstaller-sidebar.bmp"
     },
     "portable": {
-      "artifactName": "AncestorTabletSearch_v${version}.${ext}"
-    }
+      "artifactName": "洪氏宗祠神主牌搜寻系统_Portable_v${version}.${ext}"
+    },
+    "extraResources": [
+      {
+        "from": "build/icon.png",
+        "to": "icon.png"
+      }
+    ]
   }
 }
